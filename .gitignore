@@ -3,6 +3,7 @@
 !/*/
 !/.gitattributes
 !/.gitignore
+!/.project
 !/makefile
 !/*.md
 !/*.mri
