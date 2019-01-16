@@ -178,7 +178,8 @@ ARM_ENABLED = 1
 	NATIVECFLAGS = -std=gnu99 
 	CCOMFLAGS += $(PLATCFLAGS) -ffast-math  
 	LIBS += -lstdc++ 
-
+	PTR64 = 0
+  
 # OS X
 else ifeq ($(platform), osx)
    TARGETLIB := $(TARGET_NAME)_libretro.dylib
