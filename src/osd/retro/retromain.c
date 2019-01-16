@@ -187,7 +187,7 @@ void retro_init (void)
     path_mkdir(libretro_save_directory);
  
     // content loaded from mame2010 subfolder within the libretro system folder
-    snprintf(samplepath, sizeof(samplepath), "%s%s%s", libretro_system_directory, path_default_slash(), "samples");
+    snprintf(samplepath, sizeof(samplepath), "%s%s%s", system_dir, path_default_slash(), "samples");
     path_mkdir(samplepath);
     snprintf(artpath, sizeof(artpath), "%s%s%s", libretro_system_directory, path_default_slash(), "artwork");
     path_mkdir(artpath);
