@@ -218,6 +218,8 @@ void retro_init (void)
     snprintf(comment_directory, sizeof(comment_directory), "%s%s%s", libretro_save_directory, path_default_slash(), "comment");
     path_mkdir(comment_directory);
 
+    snprintf(cheatpath, sizeof(cheatpath), "%s%s%s", libretro_system_directory, path_default_slash(), "cheat");
+
     char mameini_path[1024];
     
     snprintf(mameini_path, sizeof(mameini_path), "%s%s%s", inipath, path_default_slash(), "mame.ini");
@@ -1488,6 +1490,7 @@ static const char* xargv[] = {
 	"1.0",
 	"-gamma",
 	"1.0",
+	"-cheat",
 	"-rompath",
 	NULL,
 	NULL,
