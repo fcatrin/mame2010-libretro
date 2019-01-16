@@ -179,6 +179,30 @@ ARM_ENABLED = 1
 	CCOMFLAGS += $(PLATCFLAGS) -ffast-math  
 	LIBS += -lstdc++ 
 	PTR64 = 0
+else ifeq ($(platform), android-x86)
+EXTRA_RULES = 1
+ARM_ENABLED = 0
+   TARGETLIB := $(TARGET_NAME)_libretro_x86_android.so
+	TARGETOS=linux  
+   fpic = -fPIC
+   SHARED := -shared -Wl,--version-script=src/osd/retro/link.T
+	CC_AS = @i686-linux-android-gcc
+	CC = @i686-linux-android-g++
+	AR = @i686-linux-android-ar
+	LD = @i686-linux-android-g++ 
+	ALIGNED=1
+	FORCE_DRC_C_BACKEND = 1
+	CCOMFLAGS +=  -falign-functions=16 -fsigned-char -finline  -fno-common -fno-builtin -fweb -frename-registers -falign-functions=16 -fsingle-precision-constant
+	PLATCFLAGS += -fstrict-aliasing -fno-merge-constants -DSDLMAME_NO64BITIO -DANDTIME -DRANDPATH
+	PLATCFLAGS += -DANDROID
+	LDFLAGS +=  -llog $(SHARED)
+	NATIVELD = g++
+	NATIVELDFLAGS = -Wl,--warn-common -lstdc++
+	NATIVECC = g++
+	NATIVECFLAGS = -std=gnu99 
+	CCOMFLAGS += $(PLATCFLAGS) -ffast-math  
+	LIBS += -lstdc++ 
+	PTR64 = 0
   
 # OS X
 else ifeq ($(platform), osx)
