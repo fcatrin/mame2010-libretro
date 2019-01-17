@@ -165,6 +165,7 @@ const options_entry mame_core_options[] =
 	{ "skip_gameinfo",               "0",         OPTION_BOOLEAN,    "skip displaying the game information screen at startup" },
 	{ "skip_nagscreen",              "0",         OPTION_BOOLEAN,    "skip displaying the legal notice at startup" },
 	{ "skip_warnings",               "0",         OPTION_BOOLEAN,    "skip displaying the emulation status at startup" },
+	{ "retrox_simple",               "1",         OPTION_BOOLEAN,    "hide advanced options" },
 
 	/* image device options */
 	{ OPTION_ADDED_DEVICE_OPTIONS,	 "0",		  OPTION_BOOLEAN | OPTION_INTERNAL,	"image device-specific options have been added" },

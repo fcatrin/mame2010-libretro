@@ -1495,6 +1495,8 @@ static void menu_main_populate(running_machine *machine, ui_menu *menu, void *st
 	int has_analog = FALSE;
 	int has_dips = FALSE;
 
+	int retrox_simple = options_get_bool(machine->options(), OPTION_RETROX_SIMPLE);
+
 	/* scan the input port array to see what options we need to enable */
 	for (port = machine->m_portlist.first(); port != NULL; port = port->next())
 		for (field = port->fieldlist; field != NULL; field = field->next)
@@ -1524,8 +1526,9 @@ static void menu_main_populate(running_machine *machine, ui_menu *menu, void *st
 		ui_menu_item_append(menu, "Analog Controls", NULL, 0, (void *)menu_analog);
 
 	/* add bookkeeping menu */
-	ui_menu_item_append(menu, "Bookkeeping Info", NULL, 0, (void *)menu_bookkeeping);
-
+	if (!retrox_simple) {
+		ui_menu_item_append(menu, "Bookkeeping Info", NULL, 0, (void *)menu_bookkeeping);
+	}
 	/* add game info menu */
 	ui_menu_item_append(menu, CAPSTARTGAMENOUN " Information", NULL, 0, (void *)menu_game_info);
 
@@ -1565,7 +1568,9 @@ static void menu_main_populate(running_machine *machine, ui_menu *menu, void *st
 		ui_menu_item_append(menu, "Memory Card", NULL, 0, (void *)menu_memory_card);
 
 	/* add reset and exit menus */
-	ui_menu_item_append(menu, "Select New " CAPSTARTGAMENOUN, NULL, 0, (void *)menu_select_game);
+	if (!retrox_simple) {
+		ui_menu_item_append(menu, "Select New " CAPSTARTGAMENOUN, NULL, 0, (void *)menu_select_game);
+	}
 }
 
 

@@ -61,6 +61,7 @@ static bool videoapproach1_enable = false;
 bool hide_nagscreen = false;
 bool hide_gameinfo = false;
 bool hide_warnings = false;
+bool retrox_simple = true;
 
 static void update_geometry();
 static unsigned int turbo_enable, turbo_state, turbo_delay = 5;
@@ -532,6 +533,7 @@ void retro_set_environment(retro_environment_t cb)
       { "mame_current_skip_nagscreen", "Hide nag screen; enabled|disabled" },
       { "mame_current_skip_gameinfo", "Hide game info screen; disabled|enabled" },
       { "mame_current_skip_warnings", "Hide warning screen; disabled|enabled" },
+      { "mame_current_retrox_simple", "Hide advanced settings; enabled|disabled" },
       { "mame_current_aspect_ratio", "Core provided aspect ratio; DAR|PAR" },
       { "mame_current_turbo_button", "Enable autofire; disabled|button 1|button 2|R2 to button 1 mapping|R2 to button 2 mapping" },
       { "mame_current_turbo_delay", "Set autofire pulse speed; medium|slow|fast" },
@@ -598,6 +600,17 @@ static void check_variables(void)
          hide_warnings = false;
       if (!strcmp(var.value, "enabled"))
          hide_warnings = true;
+   }
+
+   var.key = "mame_current_retrox_simple";
+   var.value = NULL;
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      retro_log(RETRO_LOG_INFO, "[MAME 2010] retrox_simple value: %s\n", var.value);
+      if (!strcmp(var.value, "disabled"))
+    	 retrox_simple = false;
+      if (!strcmp(var.value, "enabled"))
+    	 retrox_simple = true;
    }
 
    var.key = "mame_current_videoapproach1_enable";
@@ -1640,6 +1653,10 @@ int executeGame(char* path) {
 
 	if(hide_warnings) {
 		xargv[paramCount++] =(char*) "-skip_warnings";
+	}
+
+	if(retrox_simple) {
+		xargv[paramCount++] =(char*) "-retrox_simple";
 	}
 
 	xargv[paramCount++] = MgameName;
