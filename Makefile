@@ -126,6 +126,7 @@ BIGENDIAN=1
 endif
 
 CORE_DIR = .
+TARGETDIR := .
 
 # UNIX
 ifeq ($(platform), unix)
@@ -155,10 +156,12 @@ LDFLAGS += $(SHARED)
    LIBS += -lstdc++ -lpthread 
 
 # Android
-else ifeq ($(platform), android)
+else ifeq ($(platform), android-arm)
 EXTRA_RULES = 1
 ARM_ENABLED = 1
-   TARGETLIB := $(TARGET_NAME)_libretro_android.so
+   TARGETDIR := libs/armeabi-v7a
+   TARGETLIB := $(TARGETDIR)/$(TARGET_NAME)_libretro_android.so
+   SUFFIX := _armeabi-v7a
 	TARGETOS=linux  
    fpic = -fPIC
    SHARED := -shared -Wl,--version-script=src/osd/retro/link.T
@@ -182,7 +185,9 @@ ARM_ENABLED = 1
 else ifeq ($(platform), android-x86)
 EXTRA_RULES = 1
 ARM_ENABLED = 0
-   TARGETLIB := $(TARGET_NAME)_libretro_x86_android.so
+   TARGETDIR := libs/x86
+   TARGETLIB := $(TARGETDIR)/$(TARGET_NAME)_libretro_android.so
+   SUFFIX := _x86
 	TARGETOS=linux  
    fpic = -fPIC
    SHARED := -shared -Wl,--version-script=src/osd/retro/link.T
@@ -775,6 +780,7 @@ endif
 #-------------------------------------------------
 $(EMULATOR): $(OBJECTS)
 	@echo Linking $(TARGETLIB)
+	@mkdir -p $(TARGETDIR)
 ifeq ($(platform), wiiu)
 ifeq ($(LITE),1)
 	echo $(LDFLAGS) $(LDFLAGSEMULATOR) $^ $(LIBS) -o $(TARGETLIB)
