@@ -169,6 +169,7 @@ ARM_ENABLED = 1
 	CC = @arm-linux-androideabi-g++
 	AR = @arm-linux-androideabi-ar
 	LD = @arm-linux-androideabi-g++ 
+	STRIP = @arm-linux-androideabi-strip
 	ALIGNED=1
 	FORCE_DRC_C_BACKEND = 1
 	CCOMFLAGS += -mstructure-size-boundary=32 -mthumb-interwork -falign-functions=16 -fsigned-char -finline  -fno-common -fno-builtin -fweb -frename-registers -falign-functions=16 -fsingle-precision-constant
@@ -195,6 +196,7 @@ ARM_ENABLED = 0
 	CC = @i686-linux-android-g++
 	AR = @i686-linux-android-ar
 	LD = @i686-linux-android-g++ 
+	STRIP = @i686-linux-android-strip
 	ALIGNED=1
 	FORCE_DRC_C_BACKEND = 1
 	CCOMFLAGS +=  -falign-functions=16 -fsigned-char -finline  -fno-common -fno-builtin -fweb -frename-registers -falign-functions=16 -fsingle-precision-constant
@@ -791,6 +793,7 @@ else
 endif
 else
 	$(LD) $(LDFLAGS) $(LDFLAGSEMULATOR) $^ $(LIBS) -o $(TARGETLIB)
+	$(STRIP) --strip-unneeded $(TARGETLIB)
 endif
 
 #endif
