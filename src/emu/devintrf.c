@@ -734,7 +734,7 @@ device_t::~device_t()
 const region_info *device_t::subregion(const char *_tag) const
 {
 	// safety first
-	if (this == NULL)
+	if (!this)
 		return NULL;
 
 	// build a fully-qualified name
@@ -751,7 +751,7 @@ const region_info *device_t::subregion(const char *_tag) const
 device_t *device_t::subdevice(const char *_tag) const
 {
 	// safety first
-	if (this == NULL)
+	if (!this)
 		return NULL;
 
 	// build a fully-qualified name
@@ -768,7 +768,7 @@ device_t *device_t::subdevice(const char *_tag) const
 device_t *device_t::siblingdevice(const char *_tag) const
 {
 	// safety first
-	if (this == NULL)
+	if (!this)
 		return NULL;
 
 	// build a fully-qualified name
